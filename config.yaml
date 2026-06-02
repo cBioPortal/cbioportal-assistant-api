@@ -1,0 +1,39 @@
+# cBioPortal Assistant API - Application Configuration
+
+aws:
+  region: us-east-1
+
+mcp:
+  enabled: true
+  servers:
+    - name: primary
+      url: http://localhost:8000/mcp
+      transport: http
+      timeout: 30000
+      retries: 2
+
+models:
+  bedrock:
+    modelId: us.anthropic.claude-sonnet-4-6
+    reasoningConfig:
+      enabled: true
+      budgetTokens: 10000
+
+app:
+  api:
+    maxMessageLength: 50000
+    maxMessages: 100
+    maxDuration: 30
+  features:
+    mcpEnabled: true
+    reasoningEnabled: true
+  logging:
+    level: info
+    format: json
+
+server:
+  port: 3001
+  cors:
+    origins:
+      - http://localhost:3000
+      - http://localhost:8080

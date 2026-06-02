@@ -1,0 +1,36 @@
+{
+  "name": "cbioportal-assistant-api",
+  "version": "1.0.0",
+  "private": true,
+  "engines": {
+    "node": ">=22"
+  },
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "test": "vitest",
+    "test:coverage": "vitest --coverage",
+    "lint": "eslint src/"
+  },
+  "dependencies": {
+    "@ai-sdk/amazon-bedrock": "^4.0.111",
+    "@ai-sdk/mcp": "^1.0.44",
+    "@aws-sdk/credential-providers": "^3.1056.0",
+    "ai": "^6.0.193",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "js-yaml": "^4.1.1",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.2",
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^22",
+    "tsx": "^4.19.0",
+    "typescript": "^5.8.0",
+    "vitest": "^3.2.4"
+  }
+}

@@ -1,0 +1,21 @@
+services:
+  assistant-api:
+    build: .
+    ports:
+      - "3001:3001"
+    environment:
+      - AWS_PROFILE=${AWS_PROFILE:-}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID:-}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY:-}
+      - AWS_SESSION_TOKEN=${AWS_SESSION_TOKEN:-}
+      - MCP_SERVER_AUTH_TOKEN=${MCP_SERVER_AUTH_TOKEN:-}
+      - NODE_ENV=production
+    volumes:
+      - ~/.aws:/root/.aws:ro
+    depends_on:
+      - mcp-server
+
+  mcp-server:
+    image: cbioportal-mcp-server:latest
+    ports:
+      - "8000:8000"
