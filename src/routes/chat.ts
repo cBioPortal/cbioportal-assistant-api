@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { streamText, convertToModelMessages } from "ai";
+import { streamText, convertToModelMessages, isLoopFinished } from "ai";
 import type { UIMessage } from "ai";
 import { getBedrockClient } from "../lib/bedrock.js";
 import { getMCPToolsWithGracefulFallback } from "../lib/mcp-client.js";
@@ -58,6 +58,7 @@ router.post("/chat", async (req, res, next) => {
       model: bedrock(modelId),
       messages: await convertToModelMessages(messages, { tools: allTools }),
       tools: allTools,
+      stopWhen: isLoopFinished(),
       ...(reasoningEnabled && {
         providerOptions: {
           bedrock: {
