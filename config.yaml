@@ -6,8 +6,13 @@ aws:
 mcp:
   enabled: true
   servers:
-    - name: primary
+    - name: cbioportal-db
       url: http://localhost:8000/mcp
+      transport: http
+      timeout: 30000
+      retries: 2
+    - name: cbioportal-navigator
+      url: http://localhost:8002/mcp
       transport: http
       timeout: 30000
       retries: 2

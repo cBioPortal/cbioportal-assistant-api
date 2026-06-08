@@ -7,6 +7,22 @@ import { tool } from "ai";
  * which executes them and returns results.
  */
 export const clientTools = {
+  navigate_to_url: tool({
+    description:
+        "Navigate to any cBioPortal page by URL. Accepts a full URL (e.g., 'https://cbioportal.org/results?cancer_study_list=brca_tcga&...') or a relative path (e.g., '/results?cancer_study_list=brca_tcga'). Use this for general navigation beyond just study views.",
+    inputSchema: z.object({
+      url: z
+          .string()
+          .describe("A cBioPortal URL (absolute or relative path) to navigate to"),
+    }),
+  }),
+
+  get_current_page: tool({
+    description:
+        "Get the current page the user is viewing in cBioPortal. Returns the pathname, query string, hash, and full URL. Use this to understand the user's current context before taking actions.",
+    inputSchema: z.object({}),
+  }),
+
   navigate_to_study: tool({
     description:
       "Navigate to a specific cBioPortal study view page. Use this when the user wants to view or explore a particular study.",

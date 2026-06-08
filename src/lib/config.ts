@@ -93,7 +93,6 @@ export interface EnvSecrets {
   awsAccessKeyId?: string;
   awsSecretAccessKey?: string;
   awsSessionToken?: string;
-  mcpServerAuthToken?: string;
 }
 
 // ============================================================================
@@ -157,7 +156,6 @@ function loadEnvSecrets(): EnvSecrets {
     awsAccessKeyId: process.env.AWS_ACCESS_KEY_ID,
     awsSecretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
     awsSessionToken: process.env.AWS_SESSION_TOKEN,
-    mcpServerAuthToken: process.env.MCP_SERVER_AUTH_TOKEN,
   };
 }
 
@@ -243,12 +241,12 @@ export function getMCPConfig(): MCPConfig {
   return getConfig().mcp;
 }
 
-export function getPrimaryMCPServer(): MCPServerConfig {
+export function getMCPServers(): MCPServerConfig[] {
   const config = getMCPConfig();
   if (!config.servers || config.servers.length === 0) {
     throw new ConfigurationError("No MCP servers configured");
   }
-  return config.servers[0];
+  return config.servers;
 }
 
 export function getModelsConfig(): ModelsConfig {
