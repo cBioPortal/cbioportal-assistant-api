@@ -93,6 +93,7 @@ export interface EnvSecrets {
   awsAccessKeyId?: string;
   awsSecretAccessKey?: string;
   awsSessionToken?: string;
+  jwtSecret?: string;
 }
 
 // ============================================================================
@@ -156,6 +157,7 @@ function loadEnvSecrets(): EnvSecrets {
     awsAccessKeyId: process.env.AWS_ACCESS_KEY_ID,
     awsSecretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
     awsSessionToken: process.env.AWS_SESSION_TOKEN,
+    jwtSecret: process.env.JWT_SECRET,
   };
 }
 
@@ -259,6 +261,17 @@ export function getAppConfig(): AppConfig {
 
 export function getServerConfig(): ServerConfig {
   return getConfig().server;
+}
+
+export function getJwtSecret(): string {
+  const secrets = getSecrets();
+  if (!secrets.jwtSecret) {
+    throw new ConfigurationError(
+      "JWT_SECRET environment variable is required for authentication.\n" +
+        'Generate with: node -e "console.log(require(\'crypto\').randomBytes(32).toString(\'hex\'))"'
+    );
+  }
+  return secrets.jwtSecret;
 }
 
 export function resetConfig(): void {

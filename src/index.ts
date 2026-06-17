@@ -1,6 +1,8 @@
+import "dotenv/config";
 import express from "express";
-import { getConfig, getServerConfig } from "./lib/config.js";
+import { getConfig, getJwtSecret, getServerConfig } from "./lib/config.js";
 import { createCorsMiddleware } from "./middleware/cors.js";
+import { createAuthMiddleware } from "./middleware/auth.js";
 import { errorMiddleware } from "./middleware/error.js";
 import { logger } from "./lib/logger.js";
 import chatRouter from "./routes/chat.js";
@@ -9,6 +11,7 @@ import healthRouter from "./routes/health.js";
 // Load config early to fail fast on misconfiguration
 const config = getConfig();
 const { port } = getServerConfig();
+getJwtSecret();
 
 const app = express();
 
@@ -18,6 +21,7 @@ app.use(express.json({ limit: "1mb" }));
 
 // Routes
 app.use(healthRouter);
+app.use(createAuthMiddleware());
 app.use(chatRouter);
 
 // Error handling (must be last)

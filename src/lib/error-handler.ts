@@ -34,6 +34,13 @@ export class ConfigurationError extends AppError {
   }
 }
 
+export class AuthError extends AppError {
+  constructor(message: string) {
+    super(message, 401, "UNAUTHORIZED");
+    this.name = "AuthError";
+  }
+}
+
 interface ErrorResponse {
   error: string;
   code?: string;

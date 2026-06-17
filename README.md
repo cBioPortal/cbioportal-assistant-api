@@ -33,7 +33,11 @@ Edit `config.yaml` for shared settings. Create `config.local.yaml` (gitignored) 
 ## Docker
 
 ```bash
+# Local development
 docker compose up
+
+# Build and push multi-platform image
+docker buildx build --push --platform 'linux/amd64,linux/arm64' -t cbioportal/cbioportal-dev:assistant-api-latest -f Dockerfile .
 ```
 
 ## Environment Variables
